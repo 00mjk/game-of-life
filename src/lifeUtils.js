@@ -1,6 +1,6 @@
 export function getNewCellState(grid, x, y) {
     let isPopulated = grid[x][y];
-    let populatedNeighbours = getPopulatedNeighbours(grid, x, y);
+    let populatedNeighbours = getPopulatedNeighboursWithWrapping(grid, x, y);
     if (!isPopulated) {
         return populatedNeighbours.length === 3;
     }
@@ -18,6 +18,34 @@ export function getPopulatedNeighbours(grid, x, y) {
         grid[x + 1] && grid[x + 1][y],
         grid[x + 1] && grid[x + 1][y + 1]
     ].filter(Boolean);
+}
+
+export function getPopulatedNeighboursWithWrapping(grid, x, y) {
+    let populatedNeighbours = [];
+    var i;
+
+    if (grid[x - 1]) {
+        i = x - 1;
+    } else {
+        i = grid.length - 1;
+    }
+    populatedNeighbours.push(grid[i][y]);
+    grid[i][y - 1] !== undefined ? populatedNeighbours.push(grid[i][y - 1]) : populatedNeighbours.push(grid[i][grid[i].length - 1]);
+    grid[i][y + 1] !== undefined ? populatedNeighbours.push(grid[i][y + 1]) : populatedNeighbours.push(grid[i][0]);
+
+    if (grid[x + 1]) {
+        i = x + 1;
+    } else {
+        i = 0;
+    }
+    populatedNeighbours.push(grid[i][y]);
+    grid[i][y - 1] !== undefined ? populatedNeighbours.push(grid[i][y - 1]) : populatedNeighbours.push(grid[i][grid[i].length - 1]);
+    grid[i][y + 1] !== undefined ? populatedNeighbours.push(grid[i][y + 1]) : populatedNeighbours.push(grid[i][0]);
+
+    grid[x][y - 1] !== undefined ? populatedNeighbours.push(grid[x][y - 1]) : populatedNeighbours.push(grid[x][grid[x].length - 1]);
+    grid[x][y + 1] !== undefined ? populatedNeighbours.push(grid[x][y + 1]) : populatedNeighbours.push(grid[x][0]);
+
+    return populatedNeighbours.filter(Boolean);
 }
 
 export function getNextGrid(oldGrid) {

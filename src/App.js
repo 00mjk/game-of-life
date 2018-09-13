@@ -6,11 +6,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <LifeCanvas cellSize={10}
-                    gridWidth={1000}
-                    gridHeight={1000}
-                    seedChanceOfLife={5}
-                    updateInterval={500}></LifeCanvas>
+        <LifeCanvas cellSize={4}
+                    gridWidth={800}
+                    gridHeight={800}
+                    seedChanceOfLife={10}
+                    updateInterval={150}></LifeCanvas>
       </div>
     );
   }
